@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+
+# env files (VERY IMPORTANT)
+.env
+.env.*
+
+# build files
+dist/
+build/
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# editor files
+.vscode/
+.idea/
+
+# optional
+coverage/
