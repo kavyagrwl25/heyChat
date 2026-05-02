@@ -15,6 +15,13 @@ const io = new Server(server,{
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
+    socket.on("message", (message) => {
+        console.log(`Message from ${socket.id}: ${message}`)
+        socket.broadcast.emit("message", message)
+    })
+    socket.on("disconnect", () => {
+        console.log(`User Disconnected: ${socket.id}`)
+    })
 })
 
 app.use(cors({
