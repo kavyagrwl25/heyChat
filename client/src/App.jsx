@@ -27,6 +27,7 @@ function formatTime(timestamp) {
 
 function App() {
   const socketRef = useRef(null)
+  const joinedUserRef = useRef("")
   const [socketId, setSocketId] = useState("")
   const [joinedUser, setJoinedUser] = useState("")
   const [nameInput, setNameInput] = useState("")
@@ -47,6 +48,10 @@ function App() {
     nextSocket.on("connect", () => {
       setConnectionState("connected")
       setSocketId(nextSocket.id)
+
+      if (joinedUserRef.current) {
+        nextSocket.emit("chat:join", { name: joinedUserRef.current })
+      }
     })
 
     nextSocket.on("disconnect", () => {
@@ -64,6 +69,7 @@ function App() {
     })
 
     nextSocket.on("chat:joined", ({ user, activeUsers: currentUsers }) => {
+      joinedUserRef.current = user.name
       setJoinedUser(user.name)
       setNameInput(user.name)
       setActiveUsers(currentUsers)
